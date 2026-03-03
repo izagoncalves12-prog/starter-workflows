@@ -1,17 +1,16 @@
-name: Relatório de Direitos Autorais e IA - Teste 22h
+name: Relatório Diário de Direitos Autorais e IA
 
 on:
   schedule:
-    # 01:00 UTC é igual a 22:00 Horário de Brasília
-    - cron: '0 1 * * *'
+    # 22:30 Brasília = 01:30 UTC (do dia seguinte)
+    - cron: '30 1 * * *'
   
-  # Isso permite que você vá na aba "Actions" e clique em "Run workflow" para testar AGORA
+  # Botão mágico para testar agora mesmo!
   workflow_dispatch:
 
 jobs:
   run-ai-agent:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
@@ -26,10 +25,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -q -U google-generativeai
 
-      - name: Executar Agente
+      - name: Executar o Script
         env:
+          # Esses nomes devem ser IGUAIS aos que você salvou nos Secrets do GitHub
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
-        run: python main.py
+        run: python schedule-reports.py
