@@ -58,7 +58,7 @@ def run_agent():
 
     response = client.models.generate_content(
 
-        model='gemini-2.0-flash', # Atualizado para a versão estável de 2026
+        model='gemini-1.5-flash', # Atualizado para a versão estável de 2026
 
         contents=prompt,
 
